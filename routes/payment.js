@@ -38,9 +38,10 @@ router.post('/charge', (req, res, next) => {
 
     createCharge(charge).then((res1) => {
         console.log("result is ** ", res1);
-        res.status(200).send(`Thanks for purchasing a ${serviceCost}`);
+        res.status(200).send(res1);
     }).catch((err) => {
-        res.status(402).send('Error in making charge');
+        console.log(err);
+        res.status(402).send(err);
     }); 
 });
 
