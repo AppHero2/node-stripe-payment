@@ -4,7 +4,7 @@ var express = require('express');
  */ 
 
 var stripe = require('stripe')(process.env.STRIPE_SECURITY_KEY);
-var router      = express.Router();
+var router = express.Router();
 
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -25,24 +25,21 @@ function createCharge(charge, productId) {
     });
 }
 
-router.post('/:id/stripe', (req, res, next) => {
+router.post('/payment', (req, res, next) => {
 
     const stripeToken = req.body.stripeToken;
-    const productId = parseInt(req.body.productId);
-    const productAmount = req.body.productAmount;
-    const productName = req.body.productName;
+    const serviceCost = req.body.serviceCost;
 
     const charge = {
-        amount: productAmount,
+        amount: serviceCost,
         currency: 'ZAR',
         card: stripeToken
     };
 
     createCharge(charge, productId).then((res) => {
         console.log("result is ** ", res);
-        req.status(200).send(`Thanks for purchasing a ${productName}`);
+        req.status(200).send(`Thanks for purchasing a ${serviceCost}`);
     }).catch((err) => {
-        
         req.status(402).send('Error in making charge');
     }); 
 });
