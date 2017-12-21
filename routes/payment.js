@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-function createCharge(charge, productId) {
+function createCharge(charge) {
 
     return new Promise((resolve, reject) => {
 
@@ -20,7 +20,6 @@ function createCharge(charge, productId) {
             if (err) return reject(err);
             //create transaction
             return resolve(res);
-            
         });
     });
 }
@@ -36,7 +35,7 @@ router.post('/charge', (req, res, next) => {
         card: stripeToken
     };
 
-    createCharge(charge, productId).then((res) => {
+    createCharge(charge).then((res) => {
         console.log("result is ** ", res);
         req.status(200).send(`Thanks for purchasing a ${serviceCost}`);
     }).catch((err) => {
