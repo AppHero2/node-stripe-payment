@@ -36,13 +36,21 @@ router.post('/charge', (req, res, next) => {
         card: stripeToken
     };
 
-    createCharge(charge).then((res1) => {
-        console.log("result is ** ", res1);
-        res.status(200).send(res1);
-    }).catch((err) => {
-        console.log(err);
-        res.status(402).send(err);
-    }); 
+    stripe.customers.create({
+        description: '??',
+        source: stripeToken
+      }, function(err, customer) {
+        if (customer) {
+            createCharge(charge).then((res1) => {
+                console.log("result is ** ", res1);
+                res.status(200).send(res1);
+            }).catch((err) => {
+                console.log(err);
+                res.status(402).send(err);
+            });  
+        }
+      });
+
 });
 
 /**
