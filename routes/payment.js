@@ -25,7 +25,7 @@ function createCharge(charge, productId) {
     });
 }
 
-router.post('/payment', (req, res, next) => {
+router.post('/charge', (req, res, next) => {
 
     const stripeToken = req.body.stripeToken;
     const serviceCost = req.body.serviceCost;
