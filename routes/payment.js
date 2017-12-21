@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 
 function createCharge(charge) {
 
-    return new Promise((resolve, reject) => {
+    // return new Promise((resolve, reject) => {
 
         stripe.charges.create(charge, (err, res) => {
 
@@ -21,7 +21,7 @@ function createCharge(charge) {
             //create transaction
             return resolve(res);
         });
-    });
+    // });
 }
 
 router.post('/charge', (req, res, next) => {
