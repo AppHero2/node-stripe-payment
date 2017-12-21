@@ -36,11 +36,11 @@ router.post('/charge', (req, res, next) => {
         card: stripeToken
     };
 
-    createCharge(charge).then((res) => {
-        console.log("result is ** ", res);
-        req.status(200).send(`Thanks for purchasing a ${serviceCost}`);
+    createCharge(charge).then((res1) => {
+        console.log("result is ** ", res1);
+        res.status(200).send(`Thanks for purchasing a ${serviceCost}`);
     }).catch((err) => {
-        req.status(402).send('Error in making charge');
+        res.status(402).send('Error in making charge');
     }); 
 });
 
