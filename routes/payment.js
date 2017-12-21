@@ -17,7 +17,7 @@ function createCharge(charge) {
 
         stripe.charges.create(charge, (err, res) => {
 
-            if (err) return reject(err);
+            if (err) return err;
             //create transaction
             return resolve(res);
         });
