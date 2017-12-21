@@ -35,7 +35,7 @@ router.post('/charge', (req, res, next) => {
 
     const charge = {
         amount: serviceCost,
-        currency: 'ZAR',
+        currency: 'hkd',
         source: stripeToken
     };
 
