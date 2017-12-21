@@ -30,6 +30,9 @@ router.post('/charge', (req, res, next) => {
     const stripeToken = req.body.stripeToken;
     const serviceCost = req.body.serviceCost;
 
+    console.log('stripeToken : ' + stripeToken);
+    console.log('serviceCost : ' + serviceCost);
+
     const charge = {
         amount: serviceCost,
         currency: 'ZAR',
