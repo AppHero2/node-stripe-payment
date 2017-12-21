@@ -33,7 +33,7 @@ router.post('/charge', (req, res, next) => {
     const charge = {
         amount: serviceCost,
         currency: 'ZAR',
-        card: stripeToken
+        source: stripeToken
     };
 
     stripe.customers.create({
