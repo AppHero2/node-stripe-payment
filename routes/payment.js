@@ -33,15 +33,6 @@ router.post('/charge', (req, res, next) => {
     const serviceCost = req.body.serviceCost;
 
     console.log('phoneNumber : ' + phoneNumber);
-    console.log('serviceType : ' + serviceType);
-    console.log('stripeToken : ' + stripeToken);
-    console.log('serviceCost : ' + serviceCost);
-
-    const charge = {
-        amount: serviceCost,
-        currency: 'usd',
-        source: stripeToken
-    };
 
     stripe.customers.create({
         description: serviceType,
@@ -49,6 +40,12 @@ router.post('/charge', (req, res, next) => {
         source: stripeToken
       }, function(error, customer) {
         if (customer) {
+            console.log('customerId: ', customer.id);
+            const charge = {
+                'amount': serviceCost,
+                'currency': 'usd',
+                'customer': customer.id
+            };
             createCharge(charge).then((res1) => {
                 console.log(res1);
                 res.status(200).send(res1);
