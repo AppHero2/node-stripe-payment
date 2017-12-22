@@ -31,6 +31,7 @@ router.post('/charge', (req, res, next) => {
     const serviceType = req.body.serviceType;
     const stripeToken = req.body.stripeToken;
     const serviceCost = req.body.serviceCost;
+    const currencyUnit = req.body.currencyUnit;
 
     console.log('phoneNumber : ' + phoneNumber);
 
@@ -43,7 +44,7 @@ router.post('/charge', (req, res, next) => {
             console.log('customerId: ', customer.id);
             const charge = {
                 'amount': serviceCost,
-                'currency': 'usd',
+                'currency': currencyUnit==null?'zar':currencyUnit,
                 'customer': customer.id
             };
             createCharge(charge).then((res1) => {
