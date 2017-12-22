@@ -27,30 +27,37 @@ function createCharge(charge) {
 
 router.post('/charge', (req, res, next) => {
 
+    const phoneNumber = req.body.phoneNumber;
+    const serviceType = req.body.serviceType;
     const stripeToken = req.body.stripeToken;
     const serviceCost = req.body.serviceCost;
 
+    console.log('phoneNumber : ' + phoneNumber);
+    console.log('serviceType : ' + serviceType);
     console.log('stripeToken : ' + stripeToken);
     console.log('serviceCost : ' + serviceCost);
 
     const charge = {
         amount: serviceCost,
-        currency: 'hkd',
+        currency: 'usd',
         source: stripeToken
     };
 
     stripe.customers.create({
-        description: '??',
+        description: serviceType,
+        email: phoneNumber,
         source: stripeToken
-      }, function(err, customer) {
+      }, function(error, customer) {
         if (customer) {
             createCharge(charge).then((res1) => {
-                console.log("result is ** ", res1);
+                console.log(res1);
                 res.status(200).send(res1);
             }).catch((err) => {
                 console.log(err);
                 res.status(402).send(err);
             });  
+        }else if (error) {
+            res.status(402).send(error);
         }
       });
 
