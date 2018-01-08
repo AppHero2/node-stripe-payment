@@ -105,9 +105,9 @@ router.post('/customer/default_source', (req, res) => {
     stripe.customers.update(customerId, {
         default_source: req.body.defaultSource
     }, (err, customer) => {
-        if(err) {
+        if (err) {
             res.status(402).send('Error setting default source');
-        }else {
+        } else {
             res.status(200).end();
         }
     })
